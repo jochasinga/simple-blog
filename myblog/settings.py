@@ -1,9 +1,12 @@
-# Django settings for myblog project.
+import os
+SETTINGS_DIR = os.path.dirname(__file__)
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-DB_PATH = ''
+DATABASE_PATH = os.path.join(PROJECT_PATH, 'db/blog.db') 
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -14,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'DB_PATH',                      # Or path to database file if using sqlite3.
+        'NAME': DATABASE_PATH,                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -110,6 +113,7 @@ ROOT_URLCONF = 'myblog.urls'
 WSGI_APPLICATION = 'myblog.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, 'templates')
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -126,7 +130,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'myblog.blog',
+    'blog',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
